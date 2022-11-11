@@ -144,7 +144,7 @@ def sub_cdd(obj):
         print("    |                                                                            |")
         print("    |    1 : GPS_IGS_rnx            2 : MGEX_IGS_rnx           3 : GPS_USA_cors  |")
         print("    |    4 : GPS_HK_cors            5 : GPS_EU_cors            6 : GPS_AU_cors   |")
-        print("    |    7 : MGEX_HK_cors                                                        |")
+        print("    |    7 : MGEX_HK_cors           8 : MGEX_IGS_rnx_hr                          |")
         print("    |                                                                            |")
         print("    +----------------------------------------------------------------------------+")
     elif obj == 4:

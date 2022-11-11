@@ -30,6 +30,13 @@ def getftp(t, y, d):
             ftpsite = FTP_S[t]
             for fd in ftpsite:
                 ftpsiteout.append(ReplaceTimeWildcard(fd, spectime))
+    elif t == 'MGEX_IGS_rnx_hr':
+        ftpsite = FTP_S[t]
+        for fd in ftpsite:
+            for hour in range(24):
+                for minutes in range(0,60,15):
+                    spectime_s = spectime + timedelta(hours=hour) + timedelta(minutes=minutes)
+                    ftpsiteout.append(ReplaceTimeWildcard(fd, spectime_s))
     else:
         ftpsite = FTP_S[t]
         for fd in ftpsite:

@@ -95,13 +95,16 @@ def uncompresss(file):
     if file.split(".")[-1] == "Z" or file.split(".")[-1] == "gz":
         cmd = unzip + file
         os.system(cmd)
+    elif file.endswith(".tgz"):
+        cmd = "7z x -tgzip -so {} | 7z x -si -ttar".format(file)
+        os.system(cmd)
 
 
 def crx2rnxs(file):
     """
     2022-03-27 : crx2rnx by Chang Chuntao -> Version : 1.00
     """
-    if file[-3:-1].isdigit() and file[-1] == "d":
+    if (file[-3:-1].isdigit() and file[-1] == "d") or file.endswith("crx"):
         cmd = crx2rnx + file
         os.system(cmd)
 
@@ -111,7 +114,10 @@ def crx2d(file):
     2022-03-27 : crx更名为d by Chang Chuntao -> Version : 1.00
     """
     if file.split(".")[-1] == "crx":
-        filelow = file.lower()[0:4] + file.lower()[16:20] + "." + file.lower()[14:16] + "d"
+        if "15M_01S" in file:
+            filelow = file.lower()[0:4] + file.lower()[16:23] + "." + file.lower()[14:16] + "d"
+        else:
+            filelow = file.lower()[0:4] + file.lower()[16:20] + "." + file.lower()[14:16] + "d"
         os.rename(file, filelow)
 
 
@@ -171,6 +177,31 @@ def unzipfile(path, ftpsite):
             crx2rnxs(filename)
             time.sleep(0.1)
             os.remove(filename)
+    
+    dirs = os.listdir(path)
+    sites = {}
+    for filename in dirs:
+        if filename[-1] == "o" and len(filename) == 15:
+            site = filename[:4]
+            if site not in sites:
+                sites[site] = {}
+            doy = filename[4:7] + filename[11:]
+            if doy not in sites[site]:
+                sites[site][doy] = list()
+            sites[site][doy].append(filename)
+    
+    for site in sites:
+        cmd = "gfzrnx -finp "
+        for doy in sites[site]:
+            for spice in sites[site][doy]:
+                cmd = cmd + spice + " "
+        cmd = cmd + "-fout " + site + doy[:3] + "0" + doy[3:]
+        os.system(cmd)
+
+    for site in sites:
+        for doy in sites[site]:
+            for spice in sites[site][doy]:
+                os.remove(spice)
 
     dirs = os.listdir(path)
     for filename in dirs:

@@ -223,6 +223,11 @@ FTP_S = {"GPS_brdc": ["ftp://igs.gnsswhu.cn//pub/gps/data/daily/<YEAR>/<DOY>/<YY
          "MGEX_HK_cors": [
              "ftp://ftp.geodetic.gov.hk/rinex3/<YYYY>/<DOY>/<SITE>/30s/<SITE_LONG>_R_<YYYY><DOY>0000_01D_30S_MO.crx.gz"],
 
+         "MGEX_IGS_rnx_hr": ["ftp://igs.gnsswhu.cn/pub/highrate/<YYYY>/<DOY>/<YY>d/<HOUR>/"
+                          "<SITE_LONG>_R_<YYYY><DOY><HOUR><MINUTE>_15M_01S_MO.crx.gz",
+                          "ftp://igs.ign.fr/pub/igs/data/highrate/<YYYY>/<DOY>/"
+                          "<SITE_LONG>_R_<YYYY><DOY><HOUR><MINUTE>_15M_01S_MO.crx.gz"],
+
          "GPS_EU_cors": ["ftp://igs.bkg.bund.de/EUREF/obs/<YYYY>/<DOY>/<SITE><DOY>0.<YY>d.Z"],
 
          "GPS_AU_cors": ["ftp://ftp.ga.gov.au/geodesy-outgoing/gnss/data/daily/<YYYY>/<YY><DOY>/<SITE><DOY>0.<YY>d.Z"],
