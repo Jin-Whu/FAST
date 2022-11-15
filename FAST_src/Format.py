@@ -96,8 +96,12 @@ def uncompresss(file):
         cmd = unzip + file
         os.system(cmd)
     elif file.endswith(".tgz"):
-        cmd = "7z x -tgzip -so {} | 7z x -si -ttar".format(file)
-        os.system(cmd)
+        if platform.system() == 'Windows':
+            cmd = "7z x -tgzip -so {} | 7z x -si -ttar".format(file)
+            os.system(cmd)
+        else:
+            cmd = "tar xzvf {}".format(file)
+            os.system(cmd)
 
 
 def crx2rnxs(file):
