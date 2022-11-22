@@ -181,31 +181,6 @@ def unzipfile(path, ftpsite):
             crx2rnxs(filename)
             time.sleep(0.1)
             os.remove(filename)
-    
-    dirs = os.listdir(path)
-    sites = {}
-    for filename in dirs:
-        if filename[-1] == "o" and len(filename) == 15:
-            site = filename[:4]
-            if site not in sites:
-                sites[site] = {}
-            doy = filename[4:7] + filename[11:]
-            if doy not in sites[site]:
-                sites[site][doy] = list()
-            sites[site][doy].append(filename)
-    
-    for site in sites:
-        cmd = "gfzrnx -finp "
-        for doy in sites[site]:
-            for spice in sites[site][doy]:
-                cmd = cmd + spice + " "
-        cmd = cmd + "-fout " + site + doy[:3] + "0" + doy[3:]
-        os.system(cmd)
-
-    for site in sites:
-        for doy in sites[site]:
-            for spice in sites[site][doy]:
-                os.remove(spice)
 
     dirs = os.listdir(path)
     for filename in dirs:
